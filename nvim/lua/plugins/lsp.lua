@@ -8,7 +8,7 @@ return {
     },
     lazy = false,
     config = function()
-        require('lspconfig').ruff.setup({
+        vim.lsp.config("ruff", {
             init_options = {
                 settings = {
                     showSyntaxErrors = true,
@@ -24,8 +24,8 @@ return {
                 }     
             }       
         })
-        require('lspconfig').gopls.setup({})
-        require('lspconfig').pyright.setup({})
+        vim.lsp.config("gopls", {})
+        vim.lsp.config("pyright", {})
         local cmp = require('cmp')
         local lsp_zero = require('lsp-zero')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
