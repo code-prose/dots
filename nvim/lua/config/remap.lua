@@ -29,9 +29,12 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+vim.keymap.set("n", "<leader>mk", "<cmd>make<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
 vim.keymap.set('n', '<leader>yiw', 'viw"*y')
+
+vim.keymap.set('n', '<leader>fix', '<C-w>t<c-w>H')
