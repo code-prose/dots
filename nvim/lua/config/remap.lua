@@ -44,3 +44,5 @@ vim.keymap.set("n", "<leader>td", function()
     vim.cmd("terminal")
     vim.cmd("startinsert")
 end, { desc = "Open terminal in current file directory" })
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {silent = true})
