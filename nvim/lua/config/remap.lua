@@ -38,3 +38,9 @@ end)
 vim.keymap.set('n', '<leader>yiw', 'viw"*y')
 
 vim.keymap.set('n', '<leader>fix', '<C-w>t<c-w>H')
+
+vim.keymap.set("n", "<leader>td", function()
+    vim.cmd("lcd %:p:h")
+    vim.cmd("terminal")
+    vim.cmd("startinsert")
+end, { desc = "Open terminal in current file directory" })
