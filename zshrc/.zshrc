@@ -1,5 +1,10 @@
 export PATH="opt/homebrew/bin:$PATH"
-tmux
+
+if [[ -z "$TMUX" ]]; then
+    tmux attach-session -t default || tmux new-session -s default
+else
+    tmux
+fi
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -21,3 +26,4 @@ source ~/.config/zshrc/plugins.zsh
 source ~/.config/zshrc/set.zsh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
