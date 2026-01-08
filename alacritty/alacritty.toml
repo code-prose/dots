@@ -14,7 +14,7 @@ family = "FiraCode Nerd Font"
 style = "Regular"
 
 [window]
-opacity = 0.77
+opacity = 0.92
 decorations = "Buttonless"
 startup_mode = "Maximized"
 dynamic_title = true
