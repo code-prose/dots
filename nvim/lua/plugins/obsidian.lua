@@ -16,6 +16,11 @@ return {
                 path = "~/notes/vault",
             },
         },
+        templates = {
+            folder = "templates",
+            date_format = "%Y-%m-%d",
+            time_format = "%H:%M",
+        },
         daily_notes = {
             date_format = "%Y-%m-%d",
             default_tags = { "daily-notes" },
