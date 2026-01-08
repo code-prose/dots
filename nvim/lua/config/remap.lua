@@ -46,3 +46,5 @@ vim.keymap.set("n", "<leader>td", function()
 end, { desc = "Open terminal in current file directory" })
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {silent = true})
+
+vim.keymap.set('n', '<Leader>nn', '<cmd>ObsidianNewFromTemplate<CR>')
