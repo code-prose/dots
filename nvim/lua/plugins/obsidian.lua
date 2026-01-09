@@ -1,6 +1,6 @@
 return {
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*",
     event = "VeryLazy",
     ft = "markdown",
     dependencies = {
@@ -16,6 +16,17 @@ return {
                 path = "~/notes/vault",
             },
         },
+        note_id_func = function(title)
+            if title then
+                title = title:gsub("^oil:", "")
+            end
+            return title
+        end,
+        note_path_func = function(spec)
+            local vault_path = vim.fn.expand("~/notes/vault")
+            local path = require("plenary.path"):new(vault_path) / tostring(spec.id)
+            return path:with_suffix(".md")
+        end,
         templates = {
             folder = "templates",
             date_format = "%Y-%m-%d",
@@ -42,7 +53,6 @@ return {
     config = function(_, opts)
         require("obsidian").setup(opts)
 
-        -- Set conceallevel for markdown files (required for obsidian.nvim features)
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "markdown",
             callback = function()

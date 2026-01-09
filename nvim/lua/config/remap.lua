@@ -47,4 +47,20 @@ end, { desc = "Open terminal in current file directory" })
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {silent = true})
 
-vim.keymap.set('n', '<Leader>nn', '<cmd>ObsidianNewFromTemplate<CR>')
+vim.keymap.set('n', '<Leader>nn', function()
+    vim.ui.input({ prompt = "Note title: " }, function(title)
+        if title and title ~= "" then
+            -- Manually create the note file in the vault
+            local vault_path = vim.fn.expand("~/notes/vault")
+            local note_path = vault_path .. "/" .. title .. ".md"
+
+            -- Open the new note
+            vim.cmd("edit " .. vim.fn.fnameescape(note_path))
+
+            -- Apply template
+            vim.defer_fn(function()
+                vim.cmd("ObsidianTemplate")
+            end, 100)
+        end
+    end)
+end)
