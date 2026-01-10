@@ -16,6 +16,14 @@ return {
                 path = "~/notes/vault",
             },
         },
+        mappings = {
+            ["gf"] = {
+                action = function()
+                    return require("obsidian").util.gf_passthrough()
+                end,
+                opts = { noremap = false, expr = true, buffer = true },
+            },
+        },
         note_id_func = function(title)
             if title then
                 title = title:gsub("^oil:", "")
@@ -40,14 +48,6 @@ return {
         completion = {
             nvim_cmp = true,
             min_chars = 2,
-        },
-        mappings = {
-            ["gf"] = {
-                action = function()
-                    return require("obsidian").util.gf_passthrough()
-                end,
-                opts = { noremap = false, expr = true, buffer = true },
-            },
         },
     },
     config = function(_, opts)
