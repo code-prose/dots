@@ -39,7 +39,7 @@ vim.keymap.set('n', '<leader>yiw', 'viw"*y')
 
 vim.keymap.set('n', '<leader>fix', '<C-w>t<c-w>H')
 
-vim.keymap.set("n", "<leader>td", function()
+vim.keymap.set("n", "<leader>tcwd", function()
     vim.cmd("lcd %:p:h")
     vim.cmd("terminal")
     vim.cmd("startinsert")
@@ -50,17 +50,34 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {silent = true})
 vim.keymap.set('n', '<Leader>nn', function()
     vim.ui.input({ prompt = "Note title: " }, function(title)
         if title and title ~= "" then
-            -- Manually create the note file in the vault
             local vault_path = vim.fn.expand("~/notes/vault")
             local note_path = vault_path .. "/" .. title .. ".md"
 
-            -- Open the new note
             vim.cmd("edit " .. vim.fn.fnameescape(note_path))
 
-            -- Apply template
             vim.defer_fn(function()
                 vim.cmd("ObsidianTemplate")
             end, 100)
         end
     end)
+end)
+
+vim.keymap.set('n', '<Leader>st', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+end)
+
+vim.keymap.set('n', '<Leader>st', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+end)
+
+vim.keymap.set('n', '<Leader>td', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("L")
 end)

@@ -24,8 +24,10 @@ return {
                 }     
             }       
         })
-        vim.lsp.config("gopls", {})
         vim.lsp.config("pyright", {})
+
+        vim.lsp.config("gopls", {})
+
         vim.lsp.config("rust_analyzer", {})
         local cmp = require('cmp')
         local lsp_zero = require('lsp-zero')
