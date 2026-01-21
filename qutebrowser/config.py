@@ -144,7 +144,6 @@ c.colors.webpage.bg = catppuccin['base']
 c.url.start_pages = ["https://github.com/code-prose"]
 c.url.default_page = "https://github.com/code-prose"
 
-c.tabs.title.format = "{audio}{current_title}"
 c.fonts.web.size.default = 20
 
 c.url.searchengines = {
