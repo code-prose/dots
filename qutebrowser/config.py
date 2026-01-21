@@ -69,7 +69,7 @@ c.tabs.indicator.width = 0 # no tab indicators
 c.tabs.width = "15%"
 c.tabs.position = "left"
 c.fonts.web.size.default = 20
-c.tabs.title.format = "[{index:0>2}] {audio}{current_title}"
+c.tabs.title.format = "[{index:02}] {audio}{current_title}"
 c.tabs.show = "multiple"
 config.bind("<Alt-w>", "config-cycle tabs.width 5% 20%")
 
