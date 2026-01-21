@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""Qutebrowser userscript to fill credentials from Proton Pass CLI."""
+
+import json
+import os
+import subprocess
+import sys
+from urllib.parse import urlparse
+from typing import Tuple
+
+PASS_CLI = os.path.expanduser("~/.local/bin/pass-cli")
+
+
+def notify(msg, error=False):
+    cmd = "message-error" if error else "message-info"
+    with open(os.environ["QUTE_FIFO"], "w") as fifo:
+        fifo.write(f"{cmd} '[proton-pass] {msg}'\n")
+
+
+def run_command(cmd: str) -> Tuple[str, int]:
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+        return result.stdout, result.returncode
+    except subprocess.TimeoutExpired:
+        return "", 1
+
+
+def get_domain(url):
+    parsed = urlparse(url)
+    return parsed.netloc
+
+
+def find_matching_items(domain):
+    output, code = run_command([PASS_CLI, "item", "list", "Personal", "--output", "json"])
+    if code != 0:
+        return []
+
+    try:
+        data = json.loads(output)
+        items = data.get("items", [])
+    except json.JSONDecodeError:
+        return []
+
+    tlds = {'com', 'org', 'net', 'edu', 'gov', 'io', 'co', 'uk', 'de', 'me', 'tv', 'info', 'biz', 'app', 'dev'}
+
+    matches = []
+    domain_parts = [p for p in domain.lower().split('.') if p not in tlds and len(p) > 2]
+
+    for item in items:
+        content = item.get("content", {})
+        title = content.get("title", "").lower()
+        login = content.get("content", {}).get("Login", {})
+
+        if not login:
+            continue
+
+        title_parts = [p for p in title.replace("www.", "").split('.') if p not in tlds and len(p) > 2]
+
+        matched = any(dp in title_parts for dp in domain_parts)
+
+        if not matched:
+            matched = any(tp in domain_parts for tp in title_parts)
+
+        if matched:
+            username = login.get("username") or login.get("email", "")
+            password = login.get("password", "")
+            matches.append({
+                "title": title,
+                "username": username,
+                "password": password
+            })
+
+    return matches
+
+
+def qute_command(cmd):
+    with open(os.environ["QUTE_FIFO"], "w") as fifo:
+        fifo.write(cmd + "\n")
+
+
+def fake_key_raw(text):
+    for char in text:
+        if char == ' ':
+            seq = '" "'
+        else:
+            seq = f"\\{char}"
+        qute_command(f"fake-key {seq}")
+
+
+def insert_credentials(username, password, mode="both"):
+    if mode in ("both", "username") and username:
+        fake_key_raw(username)
+
+    if mode == "both":
+        qute_command("fake-key <Tab>")
+
+    if mode in ("both", "password") and password:
+        fake_key_raw(password)
+
+
+def main():
+    url = os.environ.get("QUTE_URL", "")
+    if not url:
+        notify("No URL available", error=True)
+        return 1
+
+    domain = get_domain(url)
+    if not domain:
+        notify("Could not extract domain", error=True)
+        return 1
+
+    mode = "both"
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--username-only":
+            mode = "username"
+        elif sys.argv[1] == "--password-only":
+            mode = "password"
+
+    matches = find_matching_items(domain)
+
+    if not matches:
+        notify(f"No passwords found for {domain}", error=True)
+        return 1
+
+    item = matches[0]
+    username = item.get("username", "")
+    password = item.get("password", "")
+
+    if not username and not password:
+        notify("Could not retrieve credentials", error=True)
+        return 1
+
+    insert_credentials(username, password, mode)
+
+    if len(matches) > 1:
+        notify(f"Filled from '{item.get('title')}' ({len(matches)} matches)")
+    else:
+        notify(f"Filled from '{item.get('title')}'")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install:*)",
+      "Bash(python3:*)",
+      "Bash(~/.config/qutebrowser/bookmarks/urls)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(pass-cli:*)",
+      "Bash(chmod:*)",
+      "Bash(~/.local/bin/pass-cli:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
