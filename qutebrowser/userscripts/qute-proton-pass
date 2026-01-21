@@ -25,12 +25,12 @@ def run_command(cmd: str) -> Tuple[str, int]:
         return "", 1
 
 
-def get_domain(url):
+def get_domain(url: str) -> str:
     parsed = urlparse(url)
     return parsed.netloc
 
 
-def find_matching_items(domain):
+def find_matching_items(domain: str) -> list:
     output, code = run_command([PASS_CLI, "item", "list", "Personal", "--output", "json"])
     if code != 0:
         return []
@@ -73,12 +73,12 @@ def find_matching_items(domain):
     return matches
 
 
-def qute_command(cmd):
+def qute_command(cmd: str) -> None:
     with open(os.environ["QUTE_FIFO"], "w") as fifo:
         fifo.write(cmd + "\n")
 
 
-def fake_key_raw(text):
+def fake_key_raw(text: str) -> None:
     for char in text:
         if char == ' ':
             seq = '" "'
@@ -87,7 +87,7 @@ def fake_key_raw(text):
         qute_command(f"fake-key {seq}")
 
 
-def insert_credentials(username, password, mode="both"):
+def insert_credentials(username: str, password: str, mode="both") -> None:
     if mode in ("both", "username") and username:
         fake_key_raw(username)
 
