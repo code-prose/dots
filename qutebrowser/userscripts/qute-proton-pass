@@ -78,6 +78,37 @@ def qute_command(cmd: str) -> None:
         fifo.write(cmd + "\n")
 
 
+def select_account(matches: list) -> dict | None:
+    """Show a native macOS dialog to select between multiple accounts."""
+    if len(matches) == 1:
+        return matches[0]
+
+    options = [f"{m['title']} ({m['username']})" for m in matches]
+    options_str = ", ".join(f'"{opt}"' for opt in options)
+
+    script = f'''
+    set choices to {{{options_str}}}
+    choose from list choices with prompt "Select account:" with title "Proton Pass"
+    '''
+
+    try:
+        result = subprocess.run(
+            ["osascript", "-e", script],
+            capture_output=True, text=True, timeout=30
+        )
+        if result.returncode != 0 or result.stdout.strip() == "false":
+            return None
+
+        selected = result.stdout.strip()
+        for i, opt in enumerate(options):
+            if opt == selected:
+                return matches[i]
+    except subprocess.TimeoutExpired:
+        pass
+
+    return matches[0]
+
+
 def fake_key_raw(text: str) -> None:
     for char in text:
         if char == ' ':
@@ -122,7 +153,11 @@ def main():
         notify(f"No passwords found for {domain}", error=True)
         return 1
 
-    item = matches[0]
+    item = select_account(matches)
+    if item is None:
+        notify("Selection cancelled", error=True)
+        return 1
+
     username = item.get("username", "")
     password = item.get("password", "")
 
@@ -131,11 +166,7 @@ def main():
         return 1
 
     insert_credentials(username, password, mode)
-
-    if len(matches) > 1:
-        notify(f"Filled from '{item.get('title')}' ({len(matches)} matches)")
-    else:
-        notify(f"Filled from '{item.get('title')}'")
+    notify(f"Filled from '{item.get('title')}'")
 
     return 0
 
