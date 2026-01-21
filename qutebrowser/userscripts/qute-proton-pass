@@ -6,7 +6,7 @@ import os
 import subprocess
 import sys
 from urllib.parse import urlparse
-from typing import Tuple
+from typing import Optional, Tuple
 
 PASS_CLI = os.path.expanduser("~/.local/bin/pass-cli")
 
@@ -78,7 +78,7 @@ def qute_command(cmd: str) -> None:
         fifo.write(cmd + "\n")
 
 
-def select_account(matches: list) -> dict | None:
+def select_account(matches: list) -> Optional[dict]:
     """Show a native macOS dialog to select between multiple accounts."""
     if len(matches) == 1:
         return matches[0]
