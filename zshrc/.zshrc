@@ -1,4 +1,5 @@
 export PATH="opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 
 if [[ -z "$TMUX" ]]; then
     tmux attach-session -t default || tmux new-session -s default
