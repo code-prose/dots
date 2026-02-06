@@ -29,6 +29,9 @@ return {
         vim.lsp.config("gopls", {})
 
         vim.lsp.config("rust_analyzer", {})
+
+        vim.lsp.enable({ "ruff", "pyright", "gopls", "rust_analyzer" })
+
         local cmp = require('cmp')
         local lsp_zero = require('lsp-zero')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
