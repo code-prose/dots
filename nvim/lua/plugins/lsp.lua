@@ -8,7 +8,19 @@ return {
     },
     lazy = false,
     config = function()
-        vim.lsp.config("ruff", {
+        vim.filetype.add({ extension = { jac = "jac" } })
+
+    vim.lsp.config("jaclang", {
+        cmd = { "jac", "lsp" },
+        filetypes = { "jac" },
+        root_dir = function(bufnr, cb)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local root = vim.fs.root(fname, { "pyproject.toml", ".git" })
+            cb(root or vim.fn.getcwd())
+        end,
+    })
+
+    vim.lsp.config("ruff", {
             init_options = {
                 settings = {
                     showSyntaxErrors = true,
@@ -30,7 +42,7 @@ return {
 
         vim.lsp.config("rust_analyzer", {})
 
-        vim.lsp.enable({ "ruff", "pyright", "gopls", "rust_analyzer" })
+        vim.lsp.enable({ "ruff", "pyright", "gopls", "rust_analyzer", "jaclang" })
 
         local cmp = require('cmp')
         local lsp_zero = require('lsp-zero')

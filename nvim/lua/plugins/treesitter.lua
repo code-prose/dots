@@ -2,6 +2,9 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
     config = function()
+        -- Jac is a Python superset; reuse the Python parser for .jac files
+        vim.treesitter.language.register("python", "jac")
+
         require('nvim-treesitter.install').prefer_git = true
         require('nvim-treesitter.configs').setup({
             esnure_installed = {},
