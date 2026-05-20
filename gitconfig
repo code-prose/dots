@@ -4,4 +4,4 @@
 	log = false
 
 [alias]
-	olg = log --reverse
+	gol = log --reverse
