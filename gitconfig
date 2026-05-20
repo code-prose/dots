@@ -5,3 +5,30 @@
 
 [alias]
 	gol = log --reverse
+
+[core]
+	editor = nvim
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoStash = true
+
+[fetch]
+	prune = true
+
+[push]
+	default = current
+
+[diff]
+	colorMoved = default
+
+[merge]
+	conflictstyle = zdiff3
+
+[branch]
+	sort = -committerdate
+
+[init]
+	defaultBranch = main
