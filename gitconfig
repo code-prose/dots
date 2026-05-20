@@ -2,3 +2,6 @@
 	branch = false
 	diff = false
 	log = false
+
+[alias]
+	olg = log --reverse
