@@ -42,7 +42,9 @@ return {
 
         vim.lsp.config("rust_analyzer", {})
 
-        vim.lsp.enable({ "ruff", "pyright", "gopls", "rust_analyzer", "jaclang" })
+        vim.lsp.config("clangd", {})
+
+        vim.lsp.enable({ "ruff", "pyright", "gopls", "rust_analyzer", "jaclang", "clangd" })
 
         local cmp = require('cmp')
         local lsp_zero = require('lsp-zero')
