@@ -11,7 +11,8 @@ return {
             sync_install = false,
             auto_install = false,
             indent = {
-                enable = true
+                enable = true,
+                disable = { "cpp" },
             },
             highlight = {
                 enable = true,
