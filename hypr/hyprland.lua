@@ -82,6 +82,11 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
+-- Hyprland is launched straight from a TTY (not via fish/profile.d), so
+-- flatpak's XDG_DATA_DIRS (needed for wofi etc. to see flatpak .desktop
+-- files) has to be set here rather than relying on the shell picking it up
+hl.env("XDG_DATA_DIRS", "/home/piplup/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share")
+
 
 -----------------------
 ----- PERMISSIONS -----
