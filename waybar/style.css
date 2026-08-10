@@ -4,18 +4,53 @@
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.9);
-    color: #ffffff;
+    background: rgba(26, 27, 38, 0.9); /* tokyonight bg #1a1b26 */
+    color: #c0caf5; /* tokyonight fg */
 }
 
 #workspaces button {
     padding: 0 8px;
-    color: #ffffff;
+    color: #a9b1d6;
 }
 
 #workspaces button.active {
-    background: #585b70;
+    background: #414868; /* tokyonight bright black */
+    color: #c0caf5;
     border-radius: 6px;
+}
+
+#workspaces button.urgent {
+    background: #f7768e; /* tokyonight red */
+    color: #1a1b26;
+    border-radius: 6px;
+}
+
+#window {
+    color: #c0caf5;
+}
+
+#clock {
+    color: #7aa2f7; /* tokyonight blue */
+}
+
+#pulseaudio {
+    color: #bb9af7; /* tokyonight magenta */
+}
+
+#pulseaudio.muted {
+    color: #565f89;
+}
+
+#network {
+    color: #9ece6a; /* tokyonight green */
+}
+
+#network.disconnected {
+    color: #f7768e;
+}
+
+#tray {
+    color: #c0caf5;
 }
 
 #window, #clock, #pulseaudio, #network, #tray {
