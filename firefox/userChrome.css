@@ -8,20 +8,24 @@
     #main-window body { flex-direction: column-reverse !important; }
     #navigator-toolbox { flex-direction: column-reverse !important; }
     .searchmode-switcher { position: static !important; }
-    #urlbar {
+    /* [breakout] is set by FF almost all the time (baseline "can pop out of
+     * toolbar" state, not focus-specific) - [breakout-extend] is the one
+     * that's actually only set while the dropdown is open, per
+     * UrlbarInput.mjs's startLayoutExtend()/endLayoutExtend() */
+    #urlbar[breakout-extend] {
         top: unset !important;
         bottom: calc(var(--urlbar-container-height) + 2 * var(--urlbar-padding-block)) !important;
         box-shadow: none !important;
         display: flex !important;
         flex-direction: column !important;
     }
-        #urlbar > * {
+        #urlbar[breakout-extend] > * {
             flex: none;
         }
-    #urlbar .urlbar-input-container {
+    #urlbar[breakout-extend] .urlbar-input-container {
         order: 2;
     }
-    #urlbar > .urlbarView {
+    #urlbar[breakout-extend] > .urlbarView {
         order: 1;
         border-bottom: 1px solid #666;
     }
