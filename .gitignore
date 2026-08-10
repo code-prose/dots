@@ -1,0 +1,14 @@
+  # .config/.gitignore
+  /*
+
+  !/alacritty
+  !/nvim
+  !/tmux-sessionizer
+  !/fish
+  !/starship.toml
+  !/.gitignore
+  !/tmux
+  !/waybar
+  !/yay
+  !/zshrc
+  !/gitconfig
