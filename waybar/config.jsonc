@@ -4,9 +4,9 @@
     "height": 34,
     "spacing": 4,
 
-    "modules-left": ["hyprland/workspaces", "mpris"],
+    "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["custom/protonvpn", "pulseaudio", "network", "clock", "tray"],
+    "modules-right": ["mpris", "custom/protonvpn", "pulseaudio", "network", "clock", "tray"],
 
     "hyprland/workspaces": {
         "format": "[{id}: {windows}]",
