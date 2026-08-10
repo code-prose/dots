@@ -36,7 +36,7 @@ hl.monitor({
 
 hl.workspace_rule({
     workspace = "1",
-    monitor = "DP-1",
+    monitor = "DP-2",
     default = true
 })
 
@@ -66,7 +66,8 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
   hl.exec_cmd("mako")
   hl.exec_cmd("pgrep -x waybar || waybar &")
-  hl.exec_cmd("hyprpaper")
+  -- live wallpaper via mpvpaper if a video is present, else fall back to hyprpaper (static)
+  hl.exec_cmd("test -f $HOME/.config/hypr/wallpaper/live.mp4 && mpvpaper -o 'no-audio loop-file=inf' '*' $HOME/.config/hypr/wallpaper/live.mp4 || hyprpaper")
   hl.exec_cmd("wl-paste --watch cliphist store")
   hl.exec_cmd("nm-applet")
 end)
