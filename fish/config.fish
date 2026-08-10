@@ -4,6 +4,13 @@ if status is-interactive
     end
 end
 
+# fish doesn't source /etc/profile.d, so flatpak's XDG_DATA_DIRS setup
+# (needed for app launchers like wofi to find flatpak .desktop files)
+# never runs unless replicated here
+if command -v flatpak > /dev/null
+    set -gx --path XDG_DATA_DIRS $HOME/.local/share/flatpak/exports/share /var/lib/flatpak/exports/share /usr/local/share /usr/share
+end
+
 starship init fish | source
 
 function firefox
