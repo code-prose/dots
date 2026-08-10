@@ -1,14 +1,14 @@
-  # .config/.gitignore
-  /*
+# .config/.gitignore
+/*
 
-  !/alacritty
-  !/nvim
-  !/tmux-sessionizer
-  !/fish
-  !/starship.toml
-  !/.gitignore
-  !/tmux
-  !/waybar
-  !/yay
-  !/zshrc
-  !/gitconfig
+!/alacritty
+!/nvim
+!/tmux-sessionizer
+!/fish
+!/starship.toml
+!/.gitignore
+!/tmux
+!/waybar
+!/yay
+!/zshrc
+!/gitconfig
