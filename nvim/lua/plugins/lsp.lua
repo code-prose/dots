@@ -11,18 +11,8 @@ return {
         vim.filetype.add({ extension = { jac = "jac" } })
 
         require("mason-lspconfig").setup({
-            ensure_installed = { "clangd", "pyright", "ruff", "gopls", "rust_analyzer" },
+            ensure_installed = { "clangd", "pyright", "ruff", "rust_analyzer" },
         })
-
-    vim.lsp.config("jaclang", {
-        cmd = { "jac", "lsp" },
-        filetypes = { "jac" },
-        root_dir = function(bufnr, cb)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            local root = vim.fs.root(fname, { "pyproject.toml", ".git" })
-            cb(root or vim.fn.getcwd())
-        end,
-    })
 
     vim.lsp.config("ruff", {
             init_options = {
@@ -41,8 +31,6 @@ return {
             }       
         })
         vim.lsp.config("pyright", {})
-
-        vim.lsp.config("gopls", {})
 
         vim.lsp.config("rust_analyzer", {})
 
