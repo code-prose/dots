@@ -10,6 +10,10 @@ return {
     config = function()
         vim.filetype.add({ extension = { jac = "jac" } })
 
+        require("mason-lspconfig").setup({
+            ensure_installed = { "clangd", "pyright", "ruff", "gopls", "rust_analyzer" },
+        })
+
     vim.lsp.config("jaclang", {
         cmd = { "jac", "lsp" },
         filetypes = { "jac" },
@@ -77,6 +81,21 @@ return {
             vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+            if client:supports_method("textDocument/inlayHint") then
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                vim.keymap.set("n", "<leader>ih", function()
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+                end, opts)
+            end
+
+            if client.name == "clangd" then
+                vim.keymap.set("n", "gh", "<cmd>ClangdSwitchSourceHeader<CR>", opts)
+                vim.keymap.set("n", "<leader>ci", "<cmd>ClangdSymbolInfo<CR>", opts)
+                vim.keymap.set("n", "<leader>ca", "<cmd>ClangdAST<CR>", opts)
+                vim.keymap.set("n", "<leader>cm", "<cmd>ClangdMemoryUsage<CR>", opts)
+                vim.keymap.set("n", "<leader>cth", "<cmd>ClangdTypeHierarchy<CR>", opts)
+            end
 
         end)
         

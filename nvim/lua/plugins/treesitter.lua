@@ -7,9 +7,9 @@ return {
 
         require('nvim-treesitter.install').prefer_git = true
         require('nvim-treesitter.configs').setup({
-            esnure_installed = {},
+            ensure_installed = { "cpp", "c", "cmake", "lua", "vim", "vimdoc", "query", "python", "go", "rust", "markdown" },
             sync_install = false,
-            auto_install = false,
+            auto_install = true,
             indent = {
                 enable = true,
                 disable = { "cpp" },
