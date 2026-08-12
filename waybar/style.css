@@ -61,6 +61,10 @@ window#waybar {
     color: #565f89;
 }
 
-#window, #clock, #pulseaudio, #network, #tray, #custom-protonvpn {
+#custom-khal {
+    color: #e0af68; /* tokyonight orange */
+}
+
+#window, #clock, #pulseaudio, #network, #tray, #custom-protonvpn, #custom-khal {
     padding: 0 10px;
 }

@@ -6,7 +6,7 @@
 
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["mpris", "custom/protonvpn", "pulseaudio", "network", "clock", "tray"],
+    "modules-right": ["mpris", "custom/protonvpn", "custom/khal", "pulseaudio", "network", "clock", "tray"],
 
     "hyprland/workspaces": {
         "format": "[{id}: {windows}]",
@@ -71,5 +71,13 @@
         "interval": 15,
         "on-click": "~/.config/waybar/scripts/protonvpn.sh --toggle",
         "signal": 8
+    },
+
+    "custom/khal": {
+        "exec": "~/.config/waybar/scripts/khal.sh",
+        "return-type": "json",
+        "interval": 300,
+        "on-click": "alacritty -e ikhal",
+        "max-length": 40
     }
 }
