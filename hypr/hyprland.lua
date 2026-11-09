@@ -249,7 +249,7 @@ hl.config({
         kb_layout  = "us",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "caps:ctrl_modifier",
+        kb_options = "ctrl:nocaps",
         kb_rules   = "",
 
         follow_mouse = 1,
@@ -303,6 +303,12 @@ hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.move({ direction = "left"}))
 hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.move({ direction = "down"}))
 hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.move({ direction = "up"}))
 hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.move({ direction = "right"}))
+
+-- Resize active window with mainMod + SHIFT + arrow keys (hold to repeat)
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.resize({ x = -40, y = 0,   relative = true }), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.resize({ x = 40,  y = 0,   relative = true }), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.resize({ x = 0,   y = -40, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.resize({ x = 0,   y = 40,  relative = true }), { repeating = true })
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
